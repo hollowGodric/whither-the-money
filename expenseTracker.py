@@ -23,7 +23,7 @@ def newExpenditure(args):
 	itemList = [];
 	if yesAnswer(input('Do you want to make an itemized list? ')):
 		print('Type "done" when finished')
-		runningTotal = 0
+		runningTotal = Decimal(0)
 		while True:
 			itemName = input('Enter a name for the item: ')
 			if itemName == 'done':
@@ -34,7 +34,7 @@ def newExpenditure(args):
 			if itemCost == 'done':
 				break
 			itemList.append({'name': itemName, 'cost': itemCost})
-			runningTotal += itemCost
+			runningTotal += Decimal(itemCost)
 			if Decimal(runningTotal) == Decimal(expenAmount):
 				break
 			
