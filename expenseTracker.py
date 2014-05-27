@@ -35,18 +35,23 @@ def newExpenditure(args):
 				break
 			itemList.append({'name': itemName, 'cost': itemCost})
 			runningTotal += Decimal(itemCost)
-			if Decimal(runningTotal) == Decimal(expenAmount):
+			if Decimal(runningTotal) >= Decimal(expenAmount):
 				break
-			
-	saveData = loadPickle()
-	try:
-		saveData[expenDate]
-	except KeyError:
-		saveData[expenDate] = []
-				   
-	saveData[expenDate].append({'place': expenLocale, 'amount': expenAmount, 'items': itemList})
-	savePickle(saveData)
+	
+	saveExpenditure(expenDate, expenLocale, expenAmount, itemList)
 
+
+def saveExpenditure(date, place, amount, list):
+	saveData = loadPickle()
+	
+	# TODO: replace with method
+	try:
+		saveData[date]
+	except KeyError:
+		saveData[date] = []
+		   
+	saveData[date].append({'place': place, 'amount': amount, 'items': list})
+	savePickle(saveData)	
 
 def acquireDate():
 	loop = False
