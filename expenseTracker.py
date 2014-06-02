@@ -120,12 +120,15 @@ def loadData(args):
 	for date in data:
 		for x in data[date]:
 			total += Decimal(x['amount'])
-			for item in x['items']:
-				table.add_row((item['name'], item['cost'], date, x['place']))
-				itemCosts += Decimal(item['cost'])
+			if (len(x['items']) > 0):
+				for item in x['items']:
+					table.add_row((item['name'], item['cost'], date, x['place']))
+					itemCosts += Decimal(item['cost'])
+			else:
+				table.add_row(('Unspecified', Decimal(x['amount']), date, x['place']))
 	print(table)
 	print('Total expenditures entered:', total, 'EUR')
-	print('Unaccounted for: ', total - itemCosts, 'EUR')
+	print('Non-itemized: ', total - itemCosts, 'EUR')
 
 
 commands = {
